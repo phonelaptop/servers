@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    dogs are so cute!
+
+    <img
+      src="https://i.pinimg.com/564x/a9/35/50/a93550cc497b0495c195ac7c1742fe0b.jpg"
+      alt=""
+      srcset=""
+    />
+  </body>
+  <script>
+    const data = {
+        pizza: "pizza"
+    }
+
+    fetch("/api/shark", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data), 
+    })
+      .then((response) => response.json())
+      .then((result) => console.log(result))
+  </script>
+</html>

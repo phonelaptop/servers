@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <input id="name" placeholder="name" />
+    <input id="type" placeholder="type" />
+    <input id="sauce" placeholder="sauce" />
+    <button id="guess">submit</button>
+
+    <div id="container"></div>
+
+    <img
+      src="https://thefoodcharlatan.com/wp-content/uploads/2021/08/Homemade-Pizza-Recipe-1-Hour-or-Overnight-20.jpg"
+      alt=""
+      srcset=""
+    />
+  </body>
+  <script>
+    document.querySelector("#guess").addEventListener("click", function () {
+      console.log("Your pizza is cooking, please be patient.");
+      const name = document.querySelector("#name").value;
+      const type = document.querySelector("#type").value;
+      const sauce = document.querySelector("#sauce").value;
+      const obj = {
+        name: name,
+        type: type,
+        sauce: sauce,
+      };
+
+      const myHeaders = new Headers();
+      myHeaders.append("Content-Type", "application/json");
+
+      var requestOptions = {
+        method: "POST",
+        headers: myHeaders,
+        body: JSON.stringify(obj),
+      };
+
+      fetch("/api/pizza", requestOptions)
+        .then((response) => response.json())
+        .then((result) => {
+          console.log(result);
+          let template = "";
+
+          result.forEach((pizza) => {
+            template += `
+              <div class="card" style="width: 18rem;">
+                  <div class="card-body">
+                      <h5 class="card-title">${pizza.name}</h5>
+                      <h6 class="card-subtitle mb-2 text-body-secondary">${pizza.type}</h6>
+                      <h6 class="card-subtitle mb-2 text-body-secondary2">${pizza.sauce}</h6>
+                  </div>
+              </div>
+            `;
+          });
+
+          document.querySelector("#container").innerHTML = template;
+        });
+    });
+  </script>
+</html>
